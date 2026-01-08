@@ -1,0 +1,629 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { 
+  Phone, 
+  Mail, 
+  MapPin, 
+  Projector, 
+  Monitor, 
+  Music, 
+  Home, 
+  Wrench, 
+  Truck,
+  ChevronDown,
+  Target,
+  Eye,
+  Sparkles,
+  ArrowRight,
+  MessageCircle
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import heroImage from "@assets/generated_images/luxury_home_theatre_interior.png";
+import logoImage from "@assets/Solution_AV_1767881159285.jpg";
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6 }
+};
+
+const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+function Navigation() {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    setIsOpen(false);
+  };
+
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
+      <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          <img 
+            src={logoImage} 
+            alt="Solution AV" 
+            className="h-12 w-auto rounded"
+            data-testid="img-logo"
+          />
+          
+          <div className="hidden md:flex items-center gap-8">
+            {['About', 'Services', 'Contact'].map((item) => (
+              <button
+                key={item}
+                onClick={() => scrollToSection(item.toLowerCase())}
+                className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors"
+                data-testid={`link-nav-${item.toLowerCase()}`}
+              >
+                {item}
+              </button>
+            ))}
+            <Button 
+              onClick={() => scrollToSection('contact')}
+              className="bg-gold text-gold-foreground hover:bg-gold/90"
+              data-testid="button-get-quote"
+            >
+              Get a Quote
+            </Button>
+          </div>
+
+          <button 
+            className="md:hidden text-foreground"
+            onClick={() => setIsOpen(!isOpen)}
+            data-testid="button-mobile-menu"
+          >
+            <div className="space-y-1.5">
+              <span className={`block w-6 h-0.5 bg-current transition-transform ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
+              <span className={`block w-6 h-0.5 bg-current transition-opacity ${isOpen ? 'opacity-0' : ''}`} />
+              <span className={`block w-6 h-0.5 bg-current transition-transform ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            </div>
+          </button>
+        </div>
+
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            className="md:hidden pt-4 pb-2"
+          >
+            {['About', 'Services', 'Contact'].map((item) => (
+              <button
+                key={item}
+                onClick={() => scrollToSection(item.toLowerCase())}
+                className="block w-full text-left py-3 text-foreground hover:text-gold transition-colors"
+                data-testid={`link-mobile-nav-${item.toLowerCase()}`}
+              >
+                {item}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </div>
+    </nav>
+  );
+}
+
+function Hero() {
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroImage})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
+      <div className="absolute inset-0 noise-overlay" />
+      
+      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <span className="inline-block px-4 py-2 rounded-full border border-gold/30 bg-gold/10 text-gold text-sm font-medium mb-8">
+            Premium Home Theatre Solutions
+          </span>
+        </motion.div>
+
+        <motion.h1 
+          className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          data-testid="text-hero-title"
+        >
+          Bringing <span className="text-gradient-gold">Cinema-Class</span>
+          <br />
+          Projection to Your Home
+        </motion.h1>
+
+        <motion.p 
+          className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          data-testid="text-hero-subtitle"
+        >
+          Experience 4K & 8K projection with customized screens and complete home theatre solutions, 
+          tailored to transform any space into your personal cinema.
+        </motion.p>
+
+        <motion.div 
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          <Button 
+            size="lg" 
+            className="bg-gold text-gold-foreground hover:bg-gold/90 text-base px-8 py-6 glow-gold"
+            onClick={scrollToContact}
+            data-testid="button-hero-consultation"
+          >
+            Book Free Consultation
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Button>
+          <Button 
+            size="lg" 
+            variant="outline" 
+            className="border-gold/40 text-foreground hover:bg-gold/10 text-base px-8 py-6"
+            onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+            data-testid="button-hero-explore"
+          >
+            Explore Services
+          </Button>
+        </motion.div>
+      </div>
+
+      <motion.div 
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <ChevronDown className="w-6 h-6 text-gold/60" />
+      </motion.div>
+    </section>
+  );
+}
+
+function About() {
+  return (
+    <section id="about" className="py-24 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div 
+          className="grid lg:grid-cols-2 gap-16 items-center"
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeInUp}>
+            <span className="text-gold text-sm font-semibold tracking-widest uppercase mb-4 block">
+              About Us
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6" data-testid="text-about-title">
+              Your Ultimate <span className="text-gradient-gold">AV Partner</span>
+            </h2>
+            <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
+              <p data-testid="text-about-description">
+                Solution AV is a specialized Home Projection & Home Theatre solutions provider, 
+                offering end-to-end customized setups designed to deliver a true cinema experience at home.
+              </p>
+              <p>
+                We focus on 4K and 8K home projectors, customized projection screens, and complete 
+                home theatre solutions, tailored to suit different room sizes, lighting conditions, and budgets.
+              </p>
+              <p>
+                From compact living rooms to dedicated home theatre rooms, we design and deliver setups 
+                that combine performance, aesthetics, and immersive viewing.
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            className="grid grid-cols-2 gap-4"
+            variants={staggerContainer}
+          >
+            {[
+              { icon: Projector, label: "4K & 8K Projectors", value: "Premium" },
+              { icon: Monitor, label: "Custom Screens", value: "All Sizes" },
+              { icon: Music, label: "Audio Integration", value: "Immersive" },
+              { icon: Truck, label: "Pan-India", value: "Delivery" }
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                variants={fadeInUp}
+                className="bg-gradient-card border-gradient-gold rounded-2xl p-6 text-center hover:scale-105 transition-transform"
+                data-testid={`card-stat-${i}`}
+              >
+                <item.icon className="w-10 h-10 text-gold mx-auto mb-4" />
+                <div className="text-2xl font-bold text-foreground mb-1">{item.value}</div>
+                <div className="text-sm text-muted-foreground">{item.label}</div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function MissionVision() {
+  return (
+    <section className="py-24 bg-gradient-card relative overflow-hidden">
+      <div className="absolute inset-0 noise-overlay" />
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <motion.div 
+          className="grid md:grid-cols-2 gap-12"
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+        >
+          <motion.div 
+            variants={fadeInUp}
+            className="bg-background/50 backdrop-blur-sm border border-border rounded-3xl p-8 md:p-10"
+          >
+            <div className="w-14 h-14 rounded-2xl bg-gold/20 flex items-center justify-center mb-6">
+              <Target className="w-7 h-7 text-gold" />
+            </div>
+            <h3 className="text-2xl md:text-3xl font-bold mb-6" data-testid="text-mission-title">
+              Our Mission
+            </h3>
+            <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+              Our mission is to create immersive home cinema experiences by delivering high-quality 
+              projection and audio solutions customized to individual needs.
+            </p>
+            <ul className="space-y-3">
+              {[
+                "Provide 4K & 8K home projector solutions with superior picture quality",
+                "Offer customized projection screens for all room types",
+                "Deliver complete home theatre setups, including audio and control solutions",
+                "Ensure professional installation, tuning, and after-sales support"
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-muted-foreground">
+                  <Sparkles className="w-5 h-5 text-gold mt-0.5 flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          <motion.div 
+            variants={fadeInUp}
+            className="bg-background/50 backdrop-blur-sm border border-border rounded-3xl p-8 md:p-10"
+          >
+            <div className="w-14 h-14 rounded-2xl bg-gold/20 flex items-center justify-center mb-6">
+              <Eye className="w-7 h-7 text-gold" />
+            </div>
+            <h3 className="text-2xl md:text-3xl font-bold mb-6" data-testid="text-vision-title">
+              Our Vision
+            </h3>
+            <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+              Our vision is to become a trusted name in home projection and home theatre solutions 
+              across India, known for excellence and reliability.
+            </p>
+            <ul className="space-y-3">
+              {[
+                "Expertise in customized projector-based setups",
+                "Wide range of 4K & 8K projection screens",
+                "Honest consultation and customer-first approach",
+                "Reliable service, support, and long-term relationships"
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-muted-foreground">
+                  <Sparkles className="w-5 h-5 text-gold mt-0.5 flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function Services() {
+  const services = [
+    {
+      icon: Projector,
+      title: "Home Projector Setups",
+      description: "Full HD, 4K & 8K projector installations with expert calibration for stunning picture quality.",
+      features: ["4K Ultra HD", "8K Ready", "HDR Support"]
+    },
+    {
+      icon: Monitor,
+      title: "Customized Projection Screens",
+      description: "Fixed frame, motorized, and tab-tensioned screens tailored to your room specifications.",
+      features: ["Fixed Frame", "Motorized", "Tab-Tensioned"]
+    },
+    {
+      icon: Music,
+      title: "Complete Home Theatre",
+      description: "Integrated audio and video solutions for a truly immersive cinema experience.",
+      features: ["Dolby Atmos", "Surround Sound", "AV Integration"]
+    },
+    {
+      icon: Home,
+      title: "Room Design Solutions",
+      description: "Living room and dedicated home theatre room designs optimized for your space.",
+      features: ["Space Planning", "Acoustic Design", "Lighting Control"]
+    },
+    {
+      icon: Wrench,
+      title: "Professional Installation",
+      description: "Expert installation and calibration services ensuring optimal performance.",
+      features: ["Expert Setup", "Color Calibration", "Fine Tuning"]
+    },
+    {
+      icon: Truck,
+      title: "Pan-India Delivery",
+      description: "Nationwide delivery and support to bring premium home cinema across India.",
+      features: ["Free Shipping", "Safe Handling", "Quick Delivery"]
+    }
+  ];
+
+  return (
+    <section id="services" className="py-24 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="text-gold text-sm font-semibold tracking-widest uppercase mb-4 block">
+            What We Offer
+          </span>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4" data-testid="text-services-title">
+            Our <span className="text-gradient-gold">Specializations</span>
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Comprehensive home theatre solutions from consultation to installation
+          </p>
+        </motion.div>
+
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+        >
+          {services.map((service, i) => (
+            <motion.div
+              key={i}
+              variants={fadeInUp}
+              className="group bg-gradient-card border-gradient-gold rounded-2xl p-8 hover:scale-[1.02] transition-all duration-300"
+              data-testid={`card-service-${i}`}
+            >
+              <div className="w-14 h-14 rounded-xl bg-gold/20 flex items-center justify-center mb-6 group-hover:bg-gold/30 transition-colors">
+                <service.icon className="w-7 h-7 text-gold" />
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">{service.title}</h3>
+              <p className="text-muted-foreground mb-4 leading-relaxed">{service.description}</p>
+              <div className="flex flex-wrap gap-2">
+                {service.features.map((feature, j) => (
+                  <span 
+                    key={j}
+                    className="text-xs px-3 py-1 rounded-full bg-gold/10 text-gold border border-gold/20"
+                  >
+                    {feature}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function Contact() {
+  return (
+    <section id="contact" className="py-24 bg-gradient-card relative overflow-hidden">
+      <div className="absolute inset-0 noise-overlay" />
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="text-gold text-sm font-semibold tracking-widest uppercase mb-4 block">
+            Get In Touch
+          </span>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4" data-testid="text-contact-title">
+            Contact <span className="text-gradient-gold">Us</span>
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Ready to transform your home into a cinema? Let's discuss your perfect setup.
+          </p>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-8"
+          >
+            <div className="bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-8">
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
+                <MapPin className="w-6 h-6 text-gold" />
+                Visit Our Office
+              </h3>
+              <p className="text-muted-foreground leading-relaxed" data-testid="text-address">
+                <strong className="text-foreground">Solution AV – New Office</strong><br />
+                Master Business Centre (MBC),<br />
+                2nd Floor, Office No. S-71,<br />
+                Kalyan – Badlapur Road,<br />
+                Next to Star Big Cinema, Wimco Naka,<br />
+                Ambernath (W), Maharashtra – 421505
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <a 
+                href="tel:9049443975"
+                className="bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-6 hover:border-gold/50 transition-colors group"
+                data-testid="link-phone-1"
+              >
+                <Phone className="w-6 h-6 text-gold mb-3" />
+                <div className="text-sm text-muted-foreground mb-1">Call / WhatsApp</div>
+                <div className="text-lg font-semibold text-foreground group-hover:text-gold transition-colors">
+                  9049443975
+                </div>
+              </a>
+              <a 
+                href="tel:9322643975"
+                className="bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-6 hover:border-gold/50 transition-colors group"
+                data-testid="link-phone-2"
+              >
+                <Phone className="w-6 h-6 text-gold mb-3" />
+                <div className="text-sm text-muted-foreground mb-1">Call / WhatsApp</div>
+                <div className="text-lg font-semibold text-foreground group-hover:text-gold transition-colors">
+                  9322643975
+                </div>
+              </a>
+            </div>
+
+            <a 
+              href="mailto:info@solutionav.in"
+              className="block bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-6 hover:border-gold/50 transition-colors group"
+              data-testid="link-email"
+            >
+              <Mail className="w-6 h-6 text-gold mb-3" />
+              <div className="text-sm text-muted-foreground mb-1">For Enquiries & Orders</div>
+              <div className="text-lg font-semibold text-foreground group-hover:text-gold transition-colors">
+                info@solutionav.in
+              </div>
+            </a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-8"
+          >
+            <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
+              <MessageCircle className="w-6 h-6 text-gold" />
+              Send Us a Message
+            </h3>
+            <form className="space-y-5">
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-2">Name</label>
+                <input 
+                  type="text"
+                  className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground"
+                  placeholder="Your name"
+                  data-testid="input-name"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-2">Phone</label>
+                <input 
+                  type="tel"
+                  className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground"
+                  placeholder="Your phone number"
+                  data-testid="input-phone"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-2">Email</label>
+                <input 
+                  type="email"
+                  className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground"
+                  placeholder="Your email"
+                  data-testid="input-email"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-2">Message</label>
+                <textarea 
+                  rows={4}
+                  className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground resize-none"
+                  placeholder="Tell us about your home theatre requirements..."
+                  data-testid="input-message"
+                />
+              </div>
+              <Button 
+                type="button"
+                className="w-full bg-gold text-gold-foreground hover:bg-gold/90 py-6 text-base glow-gold"
+                data-testid="button-submit-form"
+              >
+                Send Message
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </form>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="py-12 border-t border-border">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <img 
+            src={logoImage} 
+            alt="Solution AV" 
+            className="h-10 w-auto rounded"
+          />
+          <p className="text-muted-foreground text-sm text-center md:text-left" data-testid="text-footer-copyright">
+            © {new Date().getFullYear()} Solution AV. All rights reserved. Premium Home Theatre Solutions.
+          </p>
+          <div className="flex items-center gap-6">
+            <a 
+              href="tel:9049443975" 
+              className="text-muted-foreground hover:text-gold transition-colors"
+              data-testid="link-footer-phone"
+            >
+              <Phone className="w-5 h-5" />
+            </a>
+            <a 
+              href="mailto:info@solutionav.in" 
+              className="text-muted-foreground hover:text-gold transition-colors"
+              data-testid="link-footer-email"
+            >
+              <Mail className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      <Hero />
+      <About />
+      <MissionVision />
+      <Services />
+      <Contact />
+      <Footer />
+    </div>
+  );
+}
