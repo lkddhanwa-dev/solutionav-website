@@ -219,7 +219,7 @@ function About() {
               About Us
             </span>
             <h2 className="text-3xl md:text-5xl font-bold mb-6" data-testid="text-about-title">
-              Your Ultimate <span className="text-gradient-gold">AV Partner</span>
+              About <span className="text-gradient-gold">Solution AV</span>
             </h2>
             <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
               <p data-testid="text-about-description">
@@ -636,13 +636,10 @@ function Contact() {
           >
             <div className="bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-8">
               <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
-                <Calendar className="w-6 h-6 text-gold" />
-                Book an Appointment
+                <MapPin className="w-6 h-6 text-gold" />
+                Our Office
               </h3>
-              <p className="text-muted-foreground leading-relaxed mb-4" data-testid="text-address">
-                Schedule a visit to discuss your home theatre requirements at our office:
-              </p>
-              <div className="text-muted-foreground leading-relaxed pl-4 border-l-2 border-gold/30">
+              <div className="text-muted-foreground leading-relaxed" data-testid="text-address">
                 <strong className="text-foreground">Solution AV</strong><br />
                 Master Business Centre (MBC),<br />
                 2nd Floor, Office No. S-71,<br />
