@@ -15,11 +15,18 @@ import {
   Eye,
   Sparkles,
   ArrowRight,
-  MessageCircle
+  MessageCircle,
+  Calendar,
+  Image as ImageIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@assets/generated_images/luxury_home_theatre_interior.png";
 import logoImage from "@assets/Solution_AV_1767881159285.jpg";
+import galleryImage1 from "@assets/generated_images/completed_home_theatre_project.png";
+import galleryImage2 from "@assets/generated_images/living_room_projector_setup.png";
+import productImage1 from "@assets/generated_images/4k_projector_product_shot.png";
+import productImage2 from "@assets/generated_images/projection_screen_product.png";
+import screenSizesImage from "@assets/image_1767881225214.png";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -55,7 +62,7 @@ function Navigation() {
           />
           
           <div className="hidden md:flex items-center gap-8">
-            {['About', 'Services', 'Contact'].map((item) => (
+            {['About', 'Products', 'Gallery', 'Services', 'Contact'].map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item.toLowerCase())}
@@ -93,7 +100,7 @@ function Navigation() {
             animate={{ opacity: 1, height: 'auto' }}
             className="md:hidden pt-4 pb-2"
           >
-            {['About', 'Services', 'Contact'].map((item) => (
+            {['About', 'Products', 'Gallery', 'Services', 'Contact'].map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item.toLowerCase())}
@@ -177,10 +184,10 @@ function Hero() {
             size="lg" 
             variant="outline" 
             className="border-gold/40 text-foreground hover:bg-gold/10 text-base px-8 py-6"
-            onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
             data-testid="button-hero-explore"
           >
-            Explore Services
+            Explore Products
           </Button>
         </motion.div>
       </div>
@@ -252,6 +259,171 @@ function About() {
               </motion.div>
             ))}
           </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function Products() {
+  const products = [
+    {
+      image: productImage1,
+      title: "4K & 8K Home Projectors",
+      description: "Premium projectors with stunning picture quality, HDR support, and long lamp life for the ultimate viewing experience.",
+      features: ["4K Ultra HD", "8K Ready", "HDR10+", "Long Lamp Life"]
+    },
+    {
+      image: productImage2,
+      title: "Projection Screens",
+      description: "Fixed frame, motorized, and tab-tensioned screens in various sizes to suit your room and viewing preferences.",
+      features: ["Fixed Frame", "Motorized", "Tab-Tensioned", "Custom Sizes"]
+    },
+    {
+      image: screenSizesImage,
+      title: "Screen Size Options",
+      description: "Consistent design available in 55\", 65\", 70\", 75\" & 86\" sizes to fit any room dimension perfectly.",
+      features: ["55\" to 86\"", "Multiple Ratios", "Premium Quality", "Custom Fitting"]
+    }
+  ];
+
+  return (
+    <section id="products" className="py-24 bg-gradient-card relative overflow-hidden">
+      <div className="absolute inset-0 noise-overlay" />
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="text-gold text-sm font-semibold tracking-widest uppercase mb-4 block">
+            Our Products
+          </span>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4" data-testid="text-products-title">
+            Premium <span className="text-gradient-gold">Equipment</span>
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Top-quality projectors and screens for your perfect home cinema setup
+          </p>
+        </motion.div>
+
+        <motion.div 
+          className="grid md:grid-cols-3 gap-8"
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+        >
+          {products.map((product, i) => (
+            <motion.div
+              key={i}
+              variants={fadeInUp}
+              className="group bg-background/50 backdrop-blur-sm border border-border rounded-2xl overflow-hidden hover:border-gold/50 transition-all duration-300"
+              data-testid={`card-product-${i}`}
+            >
+              <div className="aspect-video overflow-hidden">
+                <img 
+                  src={product.image} 
+                  alt={product.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-3 text-foreground">{product.title}</h3>
+                <p className="text-muted-foreground mb-4 leading-relaxed text-sm">{product.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {product.features.map((feature, j) => (
+                    <span 
+                      key={j}
+                      className="text-xs px-3 py-1 rounded-full bg-gold/10 text-gold border border-gold/20"
+                    >
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function Gallery() {
+  const projects = [
+    {
+      image: galleryImage1,
+      title: "Dedicated Home Theatre Room",
+      location: "Mumbai, Maharashtra"
+    },
+    {
+      image: galleryImage2,
+      title: "Living Room Cinema Setup",
+      location: "Pune, Maharashtra"
+    },
+    {
+      image: heroImage,
+      title: "Premium Theatre Installation",
+      location: "Thane, Maharashtra"
+    }
+  ];
+
+  return (
+    <section id="gallery" className="py-24 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="text-gold text-sm font-semibold tracking-widest uppercase mb-4 block">
+            Our Work
+          </span>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4" data-testid="text-gallery-title">
+            Project <span className="text-gradient-gold">Gallery</span>
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Explore our completed home theatre installations across India
+          </p>
+        </motion.div>
+
+        <motion.div 
+          className="grid md:grid-cols-3 gap-6"
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+        >
+          {projects.map((project, i) => (
+            <motion.div
+              key={i}
+              variants={fadeInUp}
+              className="group relative aspect-video rounded-2xl overflow-hidden cursor-pointer"
+              data-testid={`card-gallery-${i}`}
+            >
+              <img 
+                src={project.image} 
+                alt={project.title}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <h3 className="text-lg font-bold text-foreground">{project.title}</h3>
+                <p className="text-sm text-gold flex items-center gap-2 mt-1">
+                  <MapPin className="w-4 h-4" />
+                  {project.location}
+                </p>
+              </div>
+              <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-gold/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <ImageIcon className="w-5 h-5 text-gold" />
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
@@ -464,17 +636,20 @@ function Contact() {
           >
             <div className="bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-8">
               <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
-                <MapPin className="w-6 h-6 text-gold" />
-                Visit Our Office
+                <Calendar className="w-6 h-6 text-gold" />
+                Book an Appointment
               </h3>
-              <p className="text-muted-foreground leading-relaxed" data-testid="text-address">
-                <strong className="text-foreground">Solution AV – New Office</strong><br />
+              <p className="text-muted-foreground leading-relaxed mb-4" data-testid="text-address">
+                Schedule a visit to discuss your home theatre requirements at our office:
+              </p>
+              <div className="text-muted-foreground leading-relaxed pl-4 border-l-2 border-gold/30">
+                <strong className="text-foreground">Solution AV</strong><br />
                 Master Business Centre (MBC),<br />
                 2nd Floor, Office No. S-71,<br />
                 Kalyan – Badlapur Road,<br />
                 Next to Star Big Cinema, Wimco Naka,<br />
                 Ambernath (W), Maharashtra – 421505
-              </p>
+              </div>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4">
@@ -620,6 +795,8 @@ export default function HomePage() {
       <Navigation />
       <Hero />
       <About />
+      <Products />
+      <Gallery />
       <MissionVision />
       <Services />
       <Contact />
