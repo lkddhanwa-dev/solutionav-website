@@ -16,17 +16,22 @@ import {
   Sparkles,
   ArrowRight,
   MessageCircle,
-  Calendar,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Cpu,
+  CheckCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@assets/generated_images/luxury_home_theatre_interior.png";
 import logoImage from "@assets/Solution_AV_1767881159285.jpg";
 import galleryImage1 from "@assets/generated_images/completed_home_theatre_project.png";
 import galleryImage2 from "@assets/generated_images/living_room_projector_setup.png";
+import galleryImage3 from "@assets/generated_images/conference_room_projector_setup.png";
+import galleryImage4 from "@assets/generated_images/hotel_restaurant_projector_setup.png";
+import galleryImage5 from "@assets/generated_images/school_classroom_projector_setup.png";
+import galleryImage6 from "@assets/generated_images/dedicated_home_theatre_room.png";
 import productImage1 from "@assets/generated_images/4k_projector_product_shot.png";
 import productImage2 from "@assets/generated_images/projection_screen_product.png";
-import screenSizesImage from "@assets/image_1767881225214.png";
+import interactivePanelImage from "@assets/Vutec_Interactive-panel_1767965132963.png";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -278,12 +283,6 @@ function Products() {
       title: "Projection Screens",
       description: "Fixed frame, motorized, and tab-tensioned screens in various sizes to suit your room and viewing preferences.",
       features: ["Fixed Frame", "Motorized", "Tab-Tensioned", "Custom Sizes"]
-    },
-    {
-      image: screenSizesImage,
-      title: "Screen Size Options",
-      description: "Consistent design available in 55\", 65\", 70\", 75\" & 86\" sizes to fit any room dimension perfectly.",
-      features: ["55\" to 86\"", "Multiple Ratios", "Premium Quality", "Custom Fitting"]
     }
   ];
 
@@ -310,7 +309,7 @@ function Products() {
         </motion.div>
 
         <motion.div 
-          className="grid md:grid-cols-3 gap-8"
+          className="grid md:grid-cols-2 gap-8 mb-16"
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
@@ -347,6 +346,68 @@ function Products() {
             </motion.div>
           ))}
         </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="bg-background/50 backdrop-blur-sm border border-border rounded-3xl overflow-hidden"
+          data-testid="card-interactive-panel"
+        >
+          <div className="grid lg:grid-cols-2 gap-0">
+            <div className="p-8 md:p-12 flex flex-col justify-center">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center">
+                  <Cpu className="w-6 h-6 text-gold" />
+                </div>
+                <span className="text-gold text-sm font-semibold tracking-widest uppercase">
+                  New Arrival
+                </span>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
+                Interactive Board <span className="text-gradient-gold">Flat Panel</span> with AI & Gemini Assistant
+              </h3>
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                Consistent design available in 65", 75" & 86" sizes to fit any room dimension perfectly.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                {[
+                  "8GB + 256GB with Micro SD Card Slot",
+                  "Latest Android Version 14.8",
+                  "EDLA Google Certified, Made in USA",
+                  "48MP & 8 Array Microphone",
+                  "Water & Dust Resistant",
+                  "AI Whiteboard with V-WRITE PEN",
+                  "AirGo Cast",
+                  "3 Years Onsite Warranty"
+                ].map((spec, i) => (
+                  <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <CheckCircle className="w-4 h-4 text-gold flex-shrink-0" />
+                    <span>{spec}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {['65"', '75"', '86"'].map((size) => (
+                  <span 
+                    key={size}
+                    className="text-sm px-4 py-2 rounded-full bg-gold/20 text-gold border border-gold/30 font-semibold"
+                  >
+                    {size}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-muted/50 to-background flex items-center justify-center p-8">
+              <img 
+                src={interactivePanelImage} 
+                alt="Interactive Board Flat Panel"
+                className="w-full max-w-md object-contain"
+              />
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -354,21 +415,12 @@ function Products() {
 
 function Gallery() {
   const projects = [
-    {
-      image: galleryImage1,
-      title: "Dedicated Home Theatre Room",
-      location: "Mumbai, Maharashtra"
-    },
-    {
-      image: galleryImage2,
-      title: "Living Room Cinema Setup",
-      location: "Pune, Maharashtra"
-    },
-    {
-      image: heroImage,
-      title: "Premium Theatre Installation",
-      location: "Thane, Maharashtra"
-    }
+    { image: galleryImage1, title: "Dedicated Home Theatre Room" },
+    { image: galleryImage2, title: "Living Room Cinema Setup" },
+    { image: galleryImage6, title: "Premium Theatre Installation" },
+    { image: galleryImage3, title: "Conference Room Setup" },
+    { image: galleryImage4, title: "Hotel & Restaurant Installation" },
+    { image: galleryImage5, title: "School Classroom Setup" }
   ];
 
   return (
@@ -388,12 +440,12 @@ function Gallery() {
             Project <span className="text-gradient-gold">Gallery</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Explore our completed home theatre installations across India
+            Explore our completed projector and screen installations across India
           </p>
         </motion.div>
 
         <motion.div 
-          className="grid md:grid-cols-3 gap-6"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
@@ -414,10 +466,6 @@ function Gallery() {
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                 <h3 className="text-lg font-bold text-foreground">{project.title}</h3>
-                <p className="text-sm text-gold flex items-center gap-2 mt-1">
-                  <MapPin className="w-4 h-4" />
-                  {project.location}
-                </p>
               </div>
               <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-gold/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                 <ImageIcon className="w-5 h-5 text-gold" />
