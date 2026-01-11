@@ -18,11 +18,14 @@ import {
   MessageCircle,
   Image as ImageIcon,
   Cpu,
-  CheckCircle
+  CheckCircle,
+  Quote,
+  Calendar,
+  Globe
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@assets/generated_images/luxury_home_theatre_interior.png";
-import heroVideo from "@assets/generated_videos/home_theatre_projector_in_action.mp4";
+import heroVideo from "@assets/generated_videos/4k_home_theatre_projector_scene.mp4";
 import logoImage from "@assets/Solution_AV_1767881159285.jpg";
 import galleryImage1 from "@assets/generated_images/completed_home_theatre_project.png";
 import galleryImage2 from "@assets/generated_images/living_room_projector_setup.png";
@@ -68,7 +71,7 @@ function Navigation() {
           />
           
           <div className="hidden md:flex items-center gap-8">
-            {['About', 'Products', 'Gallery', 'Services', 'Contact'].map((item) => (
+            {['About', 'Products', 'Gallery', 'Reviews', 'Contact'].map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item.toLowerCase())}
@@ -106,7 +109,7 @@ function Navigation() {
             animate={{ opacity: 1, height: 'auto' }}
             className="md:hidden pt-4 pb-2"
           >
-            {['About', 'Products', 'Gallery', 'Services', 'Contact'].map((item) => (
+            {['About', 'Products', 'Gallery', 'Reviews', 'Contact'].map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item.toLowerCase())}
@@ -485,11 +488,106 @@ function Gallery() {
   );
 }
 
-function MissionVision() {
+function Reviews() {
+  const reviews = [
+    {
+      type: "Home Theatre",
+      location: "Hyderabad",
+      text: "I purchased a projector and screen for my home theatre from Solution AV. The quality of the projector and the screen is excellent, and the cinematic experience is amazing. Mr. Lalit personally guided me with the right setup and ensured proper installation. Very happy with the service and overall experience."
+    },
+    {
+      type: "Home Theatre",
+      location: "Chennai",
+      text: "We bought a projector and projection screen from Solution AV for our home. The product quality is very good and installation was smooth. Mr. Lalit and his team were very supportive and professional throughout. Highly recommended for home theatre solutions."
+    },
+    {
+      type: "Resort Project",
+      location: "Goa",
+      text: "Solution AV installed a cinematic automatic screen for our resort. The screen quality and automation are top class and perfect for our guests' experience. Mr. Lalit understood our requirement clearly and delivered exactly what we wanted. Excellent service and professional execution."
+    },
+    {
+      type: "Customized Screen",
+      location: "Vadodara",
+      text: "I required a customized projector screen as per my space. Solution AV delivered exactly as promised. The 4K / 4D fabric quality is outstanding, and the clarity is excellent. I am also very happy with the quick support and professional approach. Truly value-for-money."
+    },
+    {
+      type: "Restaurant Setup",
+      location: "Restaurant Owner",
+      text: "We purchased a complete projector and screen setup for our restaurant from Solution AV. The viewing experience has enhanced our ambience. Mr. Lalit and his team are very professional and supportive. Unlike others who charge site visit fees, Solution AV provided expert guidance without unnecessary charges."
+    },
+    {
+      type: "School",
+      location: "Interactive Flat Panel",
+      text: "We purchased an interactive flat panel for our school from Solution AV. Mr. Lalit guided us for the latest model with built-in camera and AI-supported features, which other brands were not offering. The pricing was very competitive, and the product quality is excellent."
+    },
+    {
+      type: "Conference Room",
+      location: "Corporate Office",
+      text: "Solution AV completed a full conference room setup for us including projector and screen. The system integration was done professionally, and the presentation quality is excellent. Timely delivery and expert installation made the entire process smooth."
+    },
+    {
+      type: "Screen Repair & AMC",
+      location: "Residential Customer",
+      text: "Our old projection screen motor had stopped working, and the previous vendor was not supporting us. Solution AV took responsibility, repaired the issue, and replaced the motor with a new one. Very reliable service and honest guidance. Highly appreciated."
+    }
+  ];
+
   return (
-    <section className="py-24 bg-gradient-card relative overflow-hidden">
+    <section id="reviews" className="py-24 bg-gradient-card relative overflow-hidden">
       <div className="absolute inset-0 noise-overlay" />
       <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="text-gold text-sm font-semibold tracking-widest uppercase mb-4 block">
+            Testimonials
+          </span>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4" data-testid="text-reviews-title">
+            Customer <span className="text-gradient-gold">Reviews</span>
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            What our clients say about their experience with Solution AV
+          </p>
+        </motion.div>
+
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+        >
+          {reviews.map((review, i) => (
+            <motion.div
+              key={i}
+              variants={fadeInUp}
+              className="bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-6 hover:border-gold/30 transition-colors"
+              data-testid={`card-review-${i}`}
+            >
+              <Quote className="w-8 h-8 text-gold/40 mb-4" />
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-5">
+                "{review.text}"
+              </p>
+              <div className="pt-4 border-t border-border">
+                <div className="text-foreground font-semibold text-sm">{review.type}</div>
+                <div className="text-gold text-xs">{review.location}</div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function MissionVision() {
+  return (
+    <section className="py-24 relative">
+      <div className="max-w-7xl mx-auto px-6">
         <motion.div 
           className="grid md:grid-cols-2 gap-12"
           initial="initial"
@@ -499,7 +597,7 @@ function MissionVision() {
         >
           <motion.div 
             variants={fadeInUp}
-            className="bg-background/50 backdrop-blur-sm border border-border rounded-3xl p-8 md:p-10"
+            className="bg-gradient-card border-gradient-gold rounded-3xl p-8 md:p-10"
           >
             <div className="w-14 h-14 rounded-2xl bg-gold/20 flex items-center justify-center mb-6">
               <Target className="w-7 h-7 text-gold" />
@@ -528,7 +626,7 @@ function MissionVision() {
 
           <motion.div 
             variants={fadeInUp}
-            className="bg-background/50 backdrop-blur-sm border border-border rounded-3xl p-8 md:p-10"
+            className="bg-gradient-card border-gradient-gold rounded-3xl p-8 md:p-10"
           >
             <div className="w-14 h-14 rounded-2xl bg-gold/20 flex items-center justify-center mb-6">
               <Eye className="w-7 h-7 text-gold" />
@@ -601,8 +699,9 @@ function Services() {
   ];
 
   return (
-    <section id="services" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="services" className="py-24 bg-gradient-card relative overflow-hidden">
+      <div className="absolute inset-0 noise-overlay" />
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -632,7 +731,7 @@ function Services() {
             <motion.div
               key={i}
               variants={fadeInUp}
-              className="group bg-gradient-card border-gradient-gold rounded-2xl p-8 hover:scale-[1.02] transition-all duration-300"
+              className="group bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-8 hover:border-gold/30 transition-all duration-300"
               data-testid={`card-service-${i}`}
             >
               <div className="w-14 h-14 rounded-xl bg-gold/20 flex items-center justify-center mb-6 group-hover:bg-gold/30 transition-colors">
@@ -660,9 +759,8 @@ function Services() {
 
 function Contact() {
   return (
-    <section id="contact" className="py-24 bg-gradient-card relative overflow-hidden">
-      <div className="absolute inset-0 noise-overlay" />
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <section id="contact" className="py-24 relative">
+      <div className="max-w-7xl mx-auto px-6">
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -674,10 +772,11 @@ function Contact() {
             Get In Touch
           </span>
           <h2 className="text-3xl md:text-5xl font-bold mb-4" data-testid="text-contact-title">
-            Contact <span className="text-gradient-gold">Us</span>
+            Contact Us – <span className="text-gradient-gold">Solution AV</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Ready to transform your home into a cinema? Let's discuss your perfect setup.
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+            We're here to help you with the right audio-visual solutions for your space. Whether it's a home theatre, 
+            projector setup, customized screens, or professional AV integration, our team is ready to assist you.
           </p>
         </motion.div>
 
@@ -687,12 +786,38 @@ function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-8"
+            className="space-y-6"
           >
-            <div className="bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-8">
-              <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
+            <div className="bg-gradient-card border-gradient-gold rounded-2xl p-8">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-3">
+                <Calendar className="w-6 h-6 text-gold" />
+                Visits by Prior Appointment Only
+              </h3>
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                Solution AV operates on an appointment-only basis. To ensure dedicated consultation and expert guidance, 
+                we request clients to schedule an appointment in advance for meetings, demos, or site visits.
+              </p>
+              <p className="text-muted-foreground leading-relaxed text-sm">
+                Dispatches and deliveries are processed as per confirmed orders. For enquiries, orders, and site visits, 
+                please call or email us to book an appointment.
+              </p>
+            </div>
+
+            <div className="bg-gradient-card border-gradient-gold rounded-2xl p-8">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-3">
+                <Globe className="w-6 h-6 text-gold" />
+                Service Coverage
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
+                We provide AV solutions and deliveries across India, including residential, commercial, educational, 
+                hospitality, and institutional projects.
+              </p>
+            </div>
+
+            <div className="bg-gradient-card border-gradient-gold rounded-2xl p-8">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-3">
                 <MapPin className="w-6 h-6 text-gold" />
-                Our Office
+                Office Address
               </h3>
               <div className="text-muted-foreground leading-relaxed" data-testid="text-address">
                 <strong className="text-foreground">Solution AV</strong><br />
@@ -707,7 +832,7 @@ function Contact() {
             <div className="grid sm:grid-cols-2 gap-4">
               <a 
                 href="tel:9049443975"
-                className="bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-6 hover:border-gold/50 transition-colors group"
+                className="bg-gradient-card border-gradient-gold rounded-2xl p-6 hover:scale-[1.02] transition-transform group"
                 data-testid="link-phone-1"
               >
                 <Phone className="w-6 h-6 text-gold mb-3" />
@@ -718,7 +843,7 @@ function Contact() {
               </a>
               <a 
                 href="tel:9322643975"
-                className="bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-6 hover:border-gold/50 transition-colors group"
+                className="bg-gradient-card border-gradient-gold rounded-2xl p-6 hover:scale-[1.02] transition-transform group"
                 data-testid="link-phone-2"
               >
                 <Phone className="w-6 h-6 text-gold mb-3" />
@@ -731,7 +856,7 @@ function Contact() {
 
             <a 
               href="mailto:info@solutionav.in"
-              className="block bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-6 hover:border-gold/50 transition-colors group"
+              className="block bg-gradient-card border-gradient-gold rounded-2xl p-6 hover:scale-[1.02] transition-transform group"
               data-testid="link-email"
             >
               <Mail className="w-6 h-6 text-gold mb-3" />
@@ -747,7 +872,7 @@ function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-8"
+            className="bg-gradient-card border-gradient-gold rounded-2xl p-8"
           >
             <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
               <MessageCircle className="w-6 h-6 text-gold" />
@@ -786,7 +911,7 @@ function Contact() {
                 <textarea 
                   rows={4}
                   className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground resize-none"
-                  placeholder="Tell us about your home theatre requirements..."
+                  placeholder="Tell us about your requirements..."
                   data-testid="input-message"
                 />
               </div>
@@ -808,17 +933,14 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="py-12 border-t border-border">
+    <footer className="py-8 border-t border-border bg-background">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
           <img 
             src={logoImage} 
             alt="Solution AV" 
             className="h-10 w-auto rounded"
           />
-          <p className="text-muted-foreground text-sm text-center md:text-left" data-testid="text-footer-copyright">
-            © {new Date().getFullYear()} Solution AV. All rights reserved. Premium Home Theatre Solutions.
-          </p>
           <div className="flex items-center gap-6">
             <a 
               href="tel:9049443975" 
@@ -836,6 +958,15 @@ function Footer() {
             </a>
           </div>
         </div>
+        <div className="text-center border-t border-border pt-6">
+          <p className="text-muted-foreground text-xs leading-relaxed max-w-4xl mx-auto mb-4">
+            Solution AV is a system integrator and solution provider. Products are supplied, installed, and serviced as per project requirements. 
+            Visits are scheduled by prior appointment only. Specifications and availability are subject to change without prior notice.
+          </p>
+          <p className="text-muted-foreground text-sm" data-testid="text-footer-copyright">
+            © {new Date().getFullYear()} Solution AV. All rights reserved.
+          </p>
+        </div>
       </div>
     </footer>
   );
@@ -849,6 +980,7 @@ export default function HomePage() {
       <About />
       <Products />
       <Gallery />
+      <Reviews />
       <MissionVision />
       <Services />
       <Contact />
