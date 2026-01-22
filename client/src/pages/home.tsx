@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useAnimation, useInView } from "framer-motion";
 import { 
   Phone, 
   Mail, 
@@ -24,8 +24,9 @@ import {
   Globe
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import heroImage from "@assets/generated_images/luxury_home_theatre_interior.png";
-import heroVideo from "@assets/generated_videos/4k_home_theatre_projector_scene.mp4";
+import heroVideo from "@assets/generated_videos/corrected_projection_beam.mp4";
 import logoImage from "@assets/Solution_AV_1767881159285.jpg";
 import galleryImage1 from "@assets/generated_images/completed_home_theatre_project.png";
 import galleryImage2 from "@assets/generated_images/living_room_projector_setup.png";
@@ -532,6 +533,30 @@ function Reviews() {
     }
   ];
 
+  // Auto-scroll logic
+  const controls = useAnimation();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    const scroll = async () => {
+      if (!isHovered && containerRef.current) {
+        const width = containerRef.current.scrollWidth / 2;
+        await controls.start({
+          x: -width,
+          transition: {
+            duration: 40,
+            ease: "linear",
+            repeat: Infinity
+          }
+        });
+      } else {
+        controls.stop();
+      }
+    };
+    scroll();
+  }, [isHovered, controls]);
+
   return (
     <section id="reviews" className="py-24 bg-gradient-card relative overflow-hidden">
       <div className="absolute inset-0 noise-overlay" />
@@ -554,31 +579,34 @@ function Reviews() {
           </p>
         </motion.div>
 
-        <motion.div 
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          variants={staggerContainer}
+        <div 
+          className="relative overflow-hidden"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
-          {reviews.map((review, i) => (
-            <motion.div
-              key={i}
-              variants={fadeInUp}
-              className="bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-6 hover:border-gold/30 transition-colors"
-              data-testid={`card-review-${i}`}
-            >
-              <Quote className="w-8 h-8 text-gold/40 mb-4" />
-              <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-5">
-                "{review.text}"
-              </p>
-              <div className="pt-4 border-t border-border">
-                <div className="text-foreground font-semibold text-sm">{review.type}</div>
-                <div className="text-gold text-xs">{review.location}</div>
+          <motion.div 
+            ref={containerRef}
+            animate={controls}
+            className="flex gap-6 w-max"
+          >
+            {[...reviews, ...reviews].map((review, i) => (
+              <div
+                key={i}
+                className="bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-6 hover:border-gold/30 transition-colors w-[300px] md:w-[350px] shrink-0"
+                data-testid={`card-review-${i}`}
+              >
+                <Quote className="w-8 h-8 text-gold/40 mb-4" />
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-5">
+                  "{review.text}"
+                </p>
+                <div className="pt-4 border-t border-border">
+                  <div className="text-foreground font-semibold text-sm">{review.type}</div>
+                  <div className="text-gold text-xs">{review.location}</div>
+                </div>
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -758,6 +786,24 @@ function Services() {
 }
 
 function Contact() {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate successful submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      toast({
+        title: "Enquiry Sent",
+        description: "Thank you for contacting Solution AV. We will get back to you shortly.",
+      });
+      (e.target as HTMLFormElement).reset();
+    }, 1500);
+  };
+
   return (
     <section id="contact" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -878,10 +924,11 @@ function Contact() {
               <MessageCircle className="w-6 h-6 text-gold" />
               Send Us a Message
             </h3>
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-sm font-medium text-muted-foreground mb-2">Name</label>
                 <input 
+                  required
                   type="text"
                   className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground"
                   placeholder="Your name"
@@ -891,6 +938,7 @@ function Contact() {
               <div>
                 <label className="block text-sm font-medium text-muted-foreground mb-2">Phone</label>
                 <input 
+                  required
                   type="tel"
                   className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground"
                   placeholder="Your phone number"
@@ -900,6 +948,7 @@ function Contact() {
               <div>
                 <label className="block text-sm font-medium text-muted-foreground mb-2">Email</label>
                 <input 
+                  required
                   type="email"
                   className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground"
                   placeholder="Your email"
@@ -909,6 +958,7 @@ function Contact() {
               <div>
                 <label className="block text-sm font-medium text-muted-foreground mb-2">Message</label>
                 <textarea 
+                  required
                   rows={4}
                   className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground resize-none"
                   placeholder="Tell us about your requirements..."
@@ -916,12 +966,13 @@ function Contact() {
                 />
               </div>
               <Button 
-                type="button"
+                type="submit"
+                disabled={isSubmitting}
                 className="w-full bg-gold text-gold-foreground hover:bg-gold/90 py-6 text-base glow-gold"
                 data-testid="button-submit-form"
               >
-                Send Message
-                <ArrowRight className="ml-2 w-5 h-5" />
+                {isSubmitting ? "Sending..." : "Send Message"}
+                {!isSubmitting && <ArrowRight className="ml-2 w-5 h-5" />}
               </Button>
             </form>
           </motion.div>
