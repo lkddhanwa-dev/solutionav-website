@@ -134,16 +134,10 @@ function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <video 
-        autoPlay 
-        loop 
-        muted 
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-        poster={heroImage}
-      >
-        <source src={heroVideo} type="video/mp4" />
-      </video>
+      <div 
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroImage})` }}
+      />
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
       <div className="absolute inset-0 noise-overlay" />
       
