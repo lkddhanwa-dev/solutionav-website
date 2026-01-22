@@ -26,7 +26,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import heroImage from "@assets/generated_images/luxury_home_theatre_interior.png";
-import heroVideo from "@assets/generated_videos/corrected_projection_beam.mp4";
+import heroVideo from "@assets/generated_videos/luxury_theatre_ambience.mp4";
 import logoImage from "@assets/Solution_AV_1767881159285.jpg";
 import galleryImage1 from "@assets/generated_images/completed_home_theatre_project.png";
 import galleryImage2 from "@assets/generated_images/living_room_projector_setup.png";
@@ -134,10 +134,16 @@ function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      />
+      <video 
+        autoPlay 
+        loop 
+        muted 
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        poster={heroImage}
+      >
+        <source src={heroVideo} type="video/mp4" />
+      </video>
       <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
       <div className="absolute inset-0 noise-overlay" />
       
