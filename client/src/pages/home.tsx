@@ -26,7 +26,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import heroImage from "@assets/generated_images/luxury_home_theatre_interior.png";
-import heroVideo from "@assets/generated_videos/home_theatre_no_beam.mp4";
+import heroVideo from "@assets/generated_videos/luxury_theatre_neutral.mp4";
 import logoImage from "@assets/Solution_AV_1767881159285.jpg";
 import galleryImage1 from "@assets/generated_images/completed_home_theatre_project.png";
 import galleryImage2 from "@assets/generated_images/living_room_projector_setup.png";
