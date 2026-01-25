@@ -792,6 +792,9 @@ function Contact() {
     phone: "",
     email: "",
     serviceType: "",
+    screenSize: "",
+    budgetRange: "",
+    city: "",
     message: ""
   });
 
@@ -799,12 +802,18 @@ function Contact() {
     e.preventDefault();
     
     const whatsappNumber = "919049443975"; // India format
-    const text = `*Enquiry from Solution AV Website*
-*Name:* ${formData.name}
-*Phone:* ${formData.phone}
-*Email:* ${formData.email}
-*Service:* ${formData.serviceType}
-*Requirement:* ${formData.message}`;
+    const now = new Date();
+    const dateTime = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
+    const text = `Enquiry from Solution AV Website
+Name: ${formData.name}
+Phone: ${formData.phone}
+Service Type: ${formData.serviceType}
+Screen Size: ${formData.screenSize}
+Budget Range: ${formData.budgetRange}
+City: ${formData.city}
+Requirement: ${formData.message}
+Date & Time: ${dateTime}`;
 
     const encodedText = encodeURIComponent(text);
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
@@ -943,53 +952,125 @@ function Contact() {
               Send Us a Message
             </h3>
             <form className="space-y-5" onSubmit={handleSubmit}>
-              <div>
-                <label className="block text-sm font-medium text-muted-foreground mb-2">Name</label>
-                <input 
-                  required
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground"
-                  placeholder="Your name"
-                  data-testid="input-name"
-                />
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2">Name</label>
+                  <input 
+                    required
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground"
+                    placeholder="Your name"
+                    data-testid="input-name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2">Phone</label>
+                  <input 
+                    required
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground"
+                    placeholder="Your phone number"
+                    data-testid="input-phone"
+                  />
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-muted-foreground mb-2">Phone</label>
-                <input 
-                  required
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground"
-                  placeholder="Your phone number"
-                  data-testid="input-phone"
-                />
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2">Service Type</label>
+                  <select
+                    required
+                    name="serviceType"
+                    value={formData.serviceType}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground appearance-none cursor-pointer"
+                    data-testid="select-service-type"
+                  >
+                    <option value="" disabled>Select a service</option>
+                    <option value="Projector Screens (84”–120”) – Wall Mount / Instalock / SRS 4K Fabric">Projector Screens (84”–120”) – Wall Mount / Instalock / SRS 4K Fabric</option>
+                    <option value="Home Theatre Motorised Screens (16:9 – 94” / 100” / 110” / 120” / 150” / 200”)">Home Theatre Motorised Screens (16:9 – 94” / 100” / 110” / 120” / 150” / 200”)</option>
+                    <option value="Motorised Screens (4:3 – 84” to 180”)">Motorised Screens (4:3 – 84” to 180”)</option>
+                    <option value="Tripod Projection Screens (84” to 120”)">Tripod Projection Screens (84” to 120”)</option>
+                    <option value="Full HD Projectors">Full HD Projectors</option>
+                    <option value="Home Theatre Setup">Home Theatre Setup</option>
+                    <option value="4K / 8K Projector">4K / 8K Projector</option>
+                    <option value="Customized Projection Screen">Customized Projection Screen</option>
+                    <option value="Restaurant / Cafe AV Setup">Restaurant / Cafe AV Setup</option>
+                    <option value="Resort / Hotel AV Setup">Resort / Hotel AV Setup</option>
+                    <option value="Conference Room AV">Conference Room AV</option>
+                    <option value="Interactive Panel for School">Interactive Panel for School</option>
+                    <option value="Repair / Service / AMC">Repair / Service / AMC</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2">Screen Size</label>
+                  <select
+                    required
+                    name="screenSize"
+                    value={formData.screenSize}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground appearance-none cursor-pointer"
+                    data-testid="select-screen-size"
+                  >
+                    <option value="" disabled>Select size</option>
+                    <option value="84 Inch">84 Inch</option>
+                    <option value="94 Inch">94 Inch</option>
+                    <option value="100 Inch">100 Inch</option>
+                    <option value="110 Inch">110 Inch</option>
+                    <option value="120 Inch">120 Inch</option>
+                    <option value="150 Inch">150 Inch</option>
+                    <option value="180 Inch">180 Inch</option>
+                    <option value="200 Inch">200 Inch</option>
+                  </select>
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-muted-foreground mb-2">Service Type</label>
-                <select
-                  required
-                  name="serviceType"
-                  value={formData.serviceType}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground appearance-none cursor-pointer"
-                  data-testid="select-service-type"
-                >
-                  <option value="" disabled>Select a service</option>
-                  <option value="Home Theatre Setup">Home Theatre Setup</option>
-                  <option value="4K / 8K Projector">4K / 8K Projector</option>
-                  <option value="Customized Projection Screen">Customized Projection Screen</option>
-                  <option value="Restaurant / Cafe AV Setup">Restaurant / Cafe AV Setup</option>
-                  <option value="Resort / Hotel AV Setup">Resort / Hotel AV Setup</option>
-                  <option value="Conference Room AV">Conference Room AV</option>
-                  <option value="Interactive Panel for School">Interactive Panel for School</option>
-                  <option value="Repair / Service / AMC">Repair / Service / AMC</option>
-                </select>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2">Budget Range</label>
+                  <select
+                    required
+                    name="budgetRange"
+                    value={formData.budgetRange}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground appearance-none cursor-pointer"
+                    data-testid="select-budget-range"
+                  >
+                    <option value="" disabled>Select budget</option>
+                    <option value="Under ₹50,000">Under ₹50,000</option>
+                    <option value="₹50,000 – ₹1,00,000">₹50,000 – ₹1,00,000</option>
+                    <option value="₹1,00,000 – ₹2,00,000">₹1,00,000 – ₹2,00,000</option>
+                    <option value="₹2,00,000 – ₹5,00,000">₹2,00,000 – ₹5,00,000</option>
+                    <option value="Above ₹5,00,000">Above ₹5,00,000</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2">City</label>
+                  <select
+                    required
+                    name="city"
+                    value={formData.city}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors text-foreground appearance-none cursor-pointer"
+                    data-testid="select-city"
+                  >
+                    <option value="" disabled>Select city</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
               </div>
+
               <div>
                 <label className="block text-sm font-medium text-muted-foreground mb-2">Message</label>
                 <textarea 
