@@ -798,14 +798,24 @@ function Contact() {
     message: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const whatsappNumber = "919049443975"; // India format
-    const now = new Date();
-    const dateTime = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+    try {
+      // Save to backend
+      const response = await fetch("/api/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    const text = `Enquiry from Solution AV Website
+      if (!response.ok) throw new Error("Failed to save enquiry");
+
+      const whatsappNumber = "919049443975"; // India format
+      const now = new Date();
+      const dateTime = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
+      const text = `Enquiry from Solution AV Website
 Name: ${formData.name}
 Phone: ${formData.phone}
 Service Type: ${formData.serviceType}
@@ -815,15 +825,22 @@ City: ${formData.city}
 Requirement: ${formData.message}
 Date & Time: ${dateTime}`;
 
-    const encodedText = encodeURIComponent(text);
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
-    
-    window.open(whatsappUrl, "_blank");
-    
-    toast({
-      title: "Redirecting to WhatsApp",
-      description: "Opening WhatsApp to send your enquiry...",
-    });
+      const encodedText = encodeURIComponent(text);
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
+      
+      window.open(whatsappUrl, "_blank");
+      
+      toast({
+        title: "Redirecting to WhatsApp",
+        description: "Opening WhatsApp to send your enquiry...",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to process enquiry. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
