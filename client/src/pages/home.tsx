@@ -801,21 +801,11 @@ function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    try {
-      // Save to backend
-      const response = await fetch("/api/enquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+    const whatsappNumber = "919049443975"; // India format
+    const now = new Date();
+    const dateTime = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-      if (!response.ok) throw new Error("Failed to save enquiry");
-
-      const whatsappNumber = "919049443975"; // India format
-      const now = new Date();
-      const dateTime = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-
-      const text = `Enquiry from Solution AV Website
+    const text = `Enquiry from Solution AV Website
 Name: ${formData.name}
 Phone: ${formData.phone}
 Service Type: ${formData.serviceType}
@@ -825,9 +815,18 @@ City: ${formData.city}
 Requirement: ${formData.message}
 Date & Time: ${dateTime}`;
 
-      const encodedText = encodeURIComponent(text);
-      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
-      
+    const encodedText = encodeURIComponent(text);
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
+    
+    try {
+      // Attempt to save to backend (will work on Replit)
+      fetch("/api/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      }).catch(err => console.error("Optional backend save failed:", err));
+
+      // Always redirect to WhatsApp regardless of backend success
       window.open(whatsappUrl, "_blank");
       
       toast({
@@ -835,11 +834,8 @@ Date & Time: ${dateTime}`;
         description: "Opening WhatsApp to send your enquiry...",
       });
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to process enquiry. Please try again.",
-        variant: "destructive",
-      });
+      // Fallback for extreme cases
+      window.open(whatsappUrl, "_blank");
     }
   };
 
