@@ -174,10 +174,9 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          Projector Screens in{" "}
-          <span className="text-gradient-gold">Mumbai</span>
+          Bringing <span className="text-gradient-gold">Cinema-Class</span>
           <br />
-          Motorized, Customized & 4K Fabric Screens
+          Projection to Your Home
         </motion.h1>
 
         <motion.p
@@ -194,7 +193,6 @@ function Hero() {
           7.1 solutions with delivery and installation services across Mumbai,
           Maharashtra and all over India.
         </motion.p>
-
         <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center"
           initial={{ opacity: 0, y: 40 }}
