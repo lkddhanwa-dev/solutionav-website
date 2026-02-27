@@ -180,18 +180,14 @@ function Hero() {
         </motion.h1>
 
         <motion.p
-          className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10"
+          className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          Solution AV is a leading supplier of Projector Screens in Mumbai
-          offering Motorized Projection Screens, Customized Designer Home
-          Theatre Screens, Wall Mount Instalock SRS Screens, Tripod Projection
-          Screens and Fixed Frame Screens. We also provide Full HD & 4K
-          Projectors, Interactive Flat Panels and complete Home Theatre 5.1 &
-          7.1 solutions with delivery and installation services across Mumbai,
-          Maharashtra and all over India.
+          Premium projector screens, 4K projectors and complete home theatre
+          solutions designed to transform your space into a true cinema
+          experience.
         </motion.p>
         <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -258,19 +254,20 @@ function About() {
             </h2>
             <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
               <p data-testid="text-about-description">
-                Solution AV is a specialized Home Projection & Home Theatre
-                solutions provider, offering end-to-end customized setups
-                designed to deliver a true cinema experience at home.
+                Founded by Lalit Dhanwani, Solution AV is a professional AV
+                system integrator specializing in premium projector screens, 4K
+                & 8K projectors, and complete home theatre solutions.
               </p>
               <p>
-                We focus on 4K and 8K home projectors, customized projection
-                screens, and complete home theatre solutions, tailored to suit
-                different room sizes, lighting conditions, and budgets.
+                We design and deliver customized home projection environments
+                tailored to different room sizes, lighting conditions and
+                performance expectations.
               </p>
               <p>
-                From compact living rooms to dedicated home theatre rooms, we
-                design and deliver setups that combine performance, aesthetics,
-                and immersive viewing.
+                Our focus is on precision installation, aesthetic integration
+                and long-term reliability — ensuring every project delivers a
+                true cinema-class experience across residential, commercial and
+                institutional spaces.
               </p>
             </div>
           </motion.div>
